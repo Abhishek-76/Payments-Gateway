@@ -1,9 +1,8 @@
+import React from "react";
 import GooglePayButton from "@google-pay/button-react";
-function App() {
+const GooglePayments = () => {
   return (
-    <div className="nav">
-      <h1>Payments</h1>
-      <hr />
+    <div>
       <GooglePayButton
         environment="Test"
         paymentRequest={{
@@ -52,6 +51,6 @@ function App() {
       />
     </div>
   );
-}
+};
 
-export default App;
+export default GooglePayments;
