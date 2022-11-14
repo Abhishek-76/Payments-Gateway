@@ -4,16 +4,16 @@ const GooglePayments = () => {
   return (
     <div>
       <GooglePayButton
-        environment="Test"
+        environment="TEST"
         paymentRequest={{
-          appVersion: 2,
-          appversionMinor: 0,
-          allowedPaymentsMethods: [
+          apiVersion: 2,
+          apiVersionMinor: 0,
+          allowedPaymentMethods: [
             {
               type: "CARD",
               parameters: {
-                allowedPaymentsMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-                allowedCardNetworks: ["MASTERCARD", "VISA", "RUPAY"],
+                allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                allowedCardNetworks: ["MASTERCARD", "VISA"],
               },
               tokenizationSpecification: {
                 type: "PAYMENT_GATEWAY",
@@ -31,12 +31,12 @@ const GooglePayments = () => {
           transactionInfo: {
             totalPriceStatus: "FINAL",
             totalPriceLabel: "Total",
-            totalPrice: "1.00",
+            totalPrice: "1",
             currencyCode: "USD",
             countryCode: "US",
           },
           shippingAddressRequired: true,
-          callbackIntents: ["PAYMENT_AUTHORIZATION"],
+          callbackIntents: ["SHIPPING_ADDRESS", "PAYMENT_AUTHORIZATION"],
         }}
         onLoadPaymentData={(paymentRequest) => {
           console.log("Success", paymentRequest);
@@ -44,6 +44,10 @@ const GooglePayments = () => {
         onPaymentAuthorized={(paymentData) => {
           console.log("Payment Authorised Success", paymentData);
           return { transactionState: "SUCCESS" };
+        }}
+        onPaymentDataChanged={(paymentData) => {
+          console.log("On Payment Data Changed", paymentData);
+          return {};
         }}
         existingPaymentMethodRequired="false"
         buttonColor="black"
